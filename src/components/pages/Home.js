@@ -7,16 +7,23 @@ const Home = () => {
     const posts = useSelector(getAllPosts);
 
     return (
-        <div>
-            <h1>All Posts</h1>
-            <Row>
+        <>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h1 className="mb-0">All posts</h1>
+                <Link to="/post/add">
+                    <Button variant="outline-primary">Add post</Button>
+                </Link>
+            </div>
+
+            <Row className="g-4">
                 {posts.map(post => (
-                    <Col key={post.id} xs={12} md={6} lg={4} className="mb-4">
-                        <Card>
+                    <Col key={post.id} xs={12} md={6} lg={4}>
+                        <Card className="h-100">
                             <Card.Body>
                                 <Card.Title>{post.title}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">
-                                    By {post.author} | {post.publishedDate}
+                                    Author: {post.author} <br />
+                                    Published: {post.publishedDate}
                                 </Card.Subtitle>
                                 <Card.Text>{post.shortDescription}</Card.Text>
                                 <Link to={`/post/${post.id}`}>
@@ -27,8 +34,8 @@ const Home = () => {
                     </Col>
                 ))}
             </Row>
-        </div>
+        </>
     );
-};
+}
 
 export default Home;
