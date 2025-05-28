@@ -3,11 +3,14 @@ import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
+
 
 const PostForm = ({ action, actionText, ...props }) => {
     const [title, setTitle] = useState(props.title || '');
     const [author, setAuthor] = useState(props.author || '');
-    const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
+    const [publishedDate, setPublishedDate] = useState(props.publishedDate || new Date());
     const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
     const [content, setContent] = useState(props.content || '');
 
@@ -40,9 +43,14 @@ const PostForm = ({ action, actionText, ...props }) => {
 
             <Form.Group className="mb-3">
                 <Form.Label>Published Date</Form.Label>
-                <Form.Control type="date" value={publishedDate} onChange={e => setPublishedDate(e.target.value)} required />
+                <DatePicker
+                    selected={publishedDate}
+                    onChange={(date) => setPublishedDate(date)}
+                    dateFormat="MM/dd/yyyy"
+                    className="form-control"
+                    required
+                />
             </Form.Group>
-
             <Button variant="primary" type="submit">{actionText}</Button>
         </Form>
     );

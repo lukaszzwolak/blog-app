@@ -5,7 +5,7 @@ const initialState = {
             title: 'My first post',
             shortDescription: 'This is a short summary of my first blog post.',
             content: 'This is the full content of the first post.',
-            publishedDate: '2022-02-01',
+            publishedDate: new Date('2022-02-01'),
             author: 'Alice Smith',
         },
         {
@@ -13,7 +13,7 @@ const initialState = {
             title: 'React Tips & Tricks',
             shortDescription: 'Useful tips for writing better React code.',
             content: 'Let’s explore advanced React patterns and best practices...',
-            publishedDate: '2022-03-15',
+            publishedDate: new Date('2022-02-01'),
             author: 'John Doe',
         },
         {
@@ -21,7 +21,7 @@ const initialState = {
             title: 'Why Redux Still Matters',
             shortDescription: 'Is Redux still relevant in 2025?',
             content: 'Redux is often criticized, but let’s look at real use cases...',
-            publishedDate: '2022-05-10',
+            publishedDate: new Date('2022-02-01'),
             author: 'Jane Developer',
         },
     ],

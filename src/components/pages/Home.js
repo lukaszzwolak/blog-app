@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { getAllPosts } from '../../redux/postsRedux';
 import { Link } from 'react-router-dom';
 import { Card, Button, Row, Col } from 'react-bootstrap';
+import { dateToStr } from '../../utils/dateToStr';
 
 const Home = () => {
     const posts = useSelector(getAllPosts);
@@ -23,7 +24,7 @@ const Home = () => {
                                 <Card.Title>{post.title}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">
                                     Author: {post.author} <br />
-                                    Published: {post.publishedDate}
+                                    Published: {dateToStr(post.publishedDate)}
                                 </Card.Subtitle>
                                 <Card.Text>{post.shortDescription}</Card.Text>
                                 <Link to={`/post/${post.id}`}>

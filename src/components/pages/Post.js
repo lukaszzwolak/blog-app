@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getPostById, deletePost } from '../../redux/postsRedux';
 import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { dateToStr } from '../../utils/dateToStr';
 
 const Post = () => {
     const dispatch = useDispatch();
@@ -41,10 +42,11 @@ const Post = () => {
             </div>
 
             <p className="text-muted">
-                <strong>Author:</strong> {post.author} | <strong>Published:</strong> {post.publishedDate}
+                <strong>Author:</strong> {post.author} | <strong>Published:</strong> {dateToStr(post.publishedDate)}
+
             </p>
 
-            <p>{post.content}</p>
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
 
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
