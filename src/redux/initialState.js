@@ -1,4 +1,7 @@
 const initialState = {
+
+    categories: ['Sport', 'News', 'Movies'],
+
     posts: [
         {
             id: '1',

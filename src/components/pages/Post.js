@@ -42,8 +42,9 @@ const Post = () => {
             </div>
 
             <p className="text-muted">
-                <strong>Author:</strong> {post.author} | <strong>Published:</strong> {dateToStr(post.publishedDate)}
-
+                <strong>Author:</strong> {post.author} |{' '}
+                <strong>Published:</strong> {dateToStr(post.publishedDate)} |{' '}
+                <strong>Category:</strong> {post.category}
             </p>
 
             <div dangerouslySetInnerHTML={{ __html: post.content }} />

@@ -6,13 +6,21 @@ import 'react-quill/dist/quill.snow.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { getAllCategories } from '../../redux/categoriesRedux';
 
 const PostForm = ({ action, actionText, ...props }) => {
     const [title, setTitle] = useState(props.title || '');
     const [author, setAuthor] = useState(props.author || '');
-    const [publishedDate, setPublishedDate] = useState(props.publishedDate || new Date());
+    const [publishedDate, setPublishedDate] = useState(props.publishedDate || null);
     const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
     const [content, setContent] = useState(props.content || '');
+    const [category, setCategory] = useState(props.category || '');
+
+    const [contentError, setContentError] = useState(false);
+    const [dateError, setDateError] = useState(false);
+
+    const categories = useSelector(getAllCategories);
 
     const {
         register,
@@ -21,7 +29,12 @@ const PostForm = ({ action, actionText, ...props }) => {
     } = useForm();
 
     const handleSubmit = () => {
-        action({ title, author, publishedDate, shortDescription, content });
+        setContentError(!content);
+        setDateError(!publishedDate);
+
+        if (content && publishedDate) {
+            action({ title, author, publishedDate, shortDescription, content, category });
+        }
     };
 
     return (
@@ -29,13 +42,13 @@ const PostForm = ({ action, actionText, ...props }) => {
             <Form.Group className="mb-3">
                 <Form.Label>Title</Form.Label>
                 <Form.Control
-                    {...register('title', { required: true })}
+                    {...register('title', { required: true, minLength: 3 })}
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 {errors.title && (
                     <small className="d-block form-text text-danger mt-2">
-                        Title is required
+                        Title must be at least 3 characters
                     </small>
                 )}
             </Form.Group>
@@ -61,20 +74,34 @@ const PostForm = ({ action, actionText, ...props }) => {
                     onChange={(date) => setPublishedDate(date)}
                     dateFormat="MM/dd/yyyy"
                     className="form-control"
-                    required
                 />
+                {dateError && (
+                    <small className="d-block form-text text-danger mt-2">
+                        Published date is required
+                    </small>
+                )}
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label>Category</Form.Label>
+                <Form.Select value={category} onChange={(e) => setCategory(e.target.value)} required>
+                    <option value="">-- Select a category --</option>
+                    {categories.map(cat => (
+                        <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-3">
                 <Form.Label>Short description</Form.Label>
                 <Form.Control
-                    {...register('shortDescription', { required: true })}
+                    {...register('shortDescription', { required: true, minLength: 20 })}
                     value={shortDescription}
                     onChange={(e) => setShortDescription(e.target.value)}
                 />
                 {errors.shortDescription && (
                     <small className="d-block form-text text-danger mt-2">
-                        Short description is required
+                        Short description must be at least 20 characters
                     </small>
                 )}
             </Form.Group>
@@ -87,7 +114,7 @@ const PostForm = ({ action, actionText, ...props }) => {
                     onChange={setContent}
                     className="w-100"
                 />
-                {!content && (
+                {contentError && (
                     <small className="d-block form-text text-danger mt-2">
                         Content is required
                     </small>

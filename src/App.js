@@ -8,6 +8,8 @@ import PostAdd from './components/pages/PostAdd';
 import PostEdit from './components/pages/PostEdit';
 import About from './components/pages/About';
 import NotFound from './components/pages/NotFound';
+import CategoriesPage from './components/pages/CategoriesPage';
+import CategoryPosts from './components/pages/CategoryPosts';
 
 const App = () => (
   <Container>
@@ -18,6 +20,8 @@ const App = () => (
       <Route path="/post/add" element={<PostAdd />} />
       <Route path="/post/edit/:id" element={<PostEdit />} />
       <Route path="/about" element={<About />} />
+      <Route path="/categories" element={<CategoriesPage />} />
+      <Route path="/category/:name" element={<CategoryPosts />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     <Footer />
