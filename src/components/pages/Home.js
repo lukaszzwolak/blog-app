@@ -21,11 +21,11 @@ const Home = () => {
                     <Col key={post.id} xs={12} md={6} lg={4}>
                         <Card className="h-100">
                             <Card.Body>
-                                <Card.Title>{post.title}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">
-                                    Author: {post.author} <br />
-                                    Published: {dateToStr(post.publishedDate)}
-                                </Card.Subtitle>
+                                <Card.Title className="fw-bold fs-5">{post.title}</Card.Title>
+                                <Card.Text className="mb-2">
+                                    <strong>Author:</strong> {post.author} <br />
+                                    <strong>Published:</strong> {dateToStr(post.publishedDate)}
+                                </Card.Text>
                                 <Card.Text>{post.shortDescription}</Card.Text>
                                 <Link to={`/post/${post.id}`}>
                                     <Button variant="primary">Read more</Button>
