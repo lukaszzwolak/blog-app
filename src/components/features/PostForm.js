@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const PostForm = ({ action, actionText, ...props }) => {
     const [title, setTitle] = useState(props.title || '');
@@ -15,57 +17,30 @@ const PostForm = ({ action, actionText, ...props }) => {
     };
 
     return (
-        <Form onSubmit={handleSubmit} className="mx-auto" style={{ maxWidth: '700px' }}>
+        <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
                 <Form.Label>Title</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={title}
-                    onChange={e => setTitle(e.target.value)}
-                    required
-                />
+                <Form.Control value={title} onChange={e => setTitle(e.target.value)} required />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label>Short Description</Form.Label>
+                <Form.Control value={shortDescription} onChange={e => setShortDescription(e.target.value)} required />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label>Content</Form.Label>
+                <ReactQuill theme="snow" value={content} onChange={setContent} />
             </Form.Group>
 
             <Form.Group className="mb-3">
                 <Form.Label>Author</Form.Label>
-                <Form.Control
-                    type="text"
-                    value={author}
-                    onChange={e => setAuthor(e.target.value)}
-                    required
-                />
+                <Form.Control value={author} onChange={e => setAuthor(e.target.value)} required />
             </Form.Group>
 
             <Form.Group className="mb-3">
-                <Form.Label>Published</Form.Label>
-                <Form.Control
-                    type="date"
-                    value={publishedDate}
-                    onChange={e => setPublishedDate(e.target.value)}
-                    required
-                />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-                <Form.Label>Short description</Form.Label>
-                <Form.Control
-                    as="textarea"
-                    rows={2}
-                    value={shortDescription}
-                    onChange={e => setShortDescription(e.target.value)}
-                    required
-                />
-            </Form.Group>
-
-            <Form.Group className="mb-4">
-                <Form.Label>Main content</Form.Label>
-                <Form.Control
-                    as="textarea"
-                    rows={6}
-                    value={content}
-                    onChange={e => setContent(e.target.value)}
-                    required
-                />
+                <Form.Label>Published Date</Form.Label>
+                <Form.Control type="date" value={publishedDate} onChange={e => setPublishedDate(e.target.value)} required />
             </Form.Group>
 
             <Button variant="primary" type="submit">{actionText}</Button>
